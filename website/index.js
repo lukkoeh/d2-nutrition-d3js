@@ -17,7 +17,7 @@ const zoom = d3
     projection
       .scale(event.transform.k)
       .translate(event.transform.x, event.transform.y);
-    svg.selectAll("path").attr("d", d3.geoPath().projection(projection));
+    svg.selectAll("path").attr("d", pathGenerator);
   });
 
 // Load external data and boot
@@ -29,7 +29,7 @@ d3.json("/geo.json").then(function(data) {
     .data(data.features)
     .join("path")
     .attr("fill", "#fff")
-    .attr("d", d3.geoPath().projection(projection))
+    .attr("d", pathGenerator)
     .style("stroke", "#999999")
     .on("mouseover", (e, d) => {
       d3.select(e.currentTarget)
