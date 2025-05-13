@@ -1,23 +1,36 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
+    <head>
+        <title>D2 Thingy</title>
+        <script src="https://unpkg.com/d3"></script>
+        <link
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+            integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+            crossorigin=""
+        />
+        <script
+            src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""
+        ></script>
+        <script src="https://d3js.org/d3-geo-projection.v3.min.js"></script>
+        <!-- <script src="https://unpkg.com/postgres"></script> -->
+    </head>
+    <body>
+        <style>
+            #map {
+                height: 580px;
+            }
+        </style>
 
-<head>
-    <title>D2 Thingy</title>
-    <script src="https://unpkg.com/d3"></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    <script src="https://d3js.org/d3-geo-projection.v3.min.js"></script>
-    <!-- <script src="https://unpkg.com/postgres"></script> -->
-</head>
-<body>
-<style>
-#map {
-    height: 580px;
-}
-</style>
-
-<svg width="1920" height="1080" id="vis"></svg>
-<div id="map"></div>
-<script src="/index.js"></script>
-</body>
+        <svg
+            width="1920"
+            height="1080"
+            id="vis"
+            style="background: #add8e6"
+        ></svg>
+        <div id="map"></div>
+        <script src="/index.js"></script>
+    </body>
 </html>
