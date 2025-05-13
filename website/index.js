@@ -9,9 +9,7 @@ const projection = d3
   .translate([width / 2, height / 2]);
 
 // Load external data and boot
-d3.json(
-  "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson",
-).then(function (data) {
+d3.json("/geo.json").then(function(data) {
   // Draw the map
   svg
     .append("g")
