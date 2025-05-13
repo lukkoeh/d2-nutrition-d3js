@@ -2,6 +2,7 @@ const svg = d3.select("svg"),
   width = +svg.attr("width"),
   height = +svg.attr("height");
 
+const g = svg.append("g");
 // Map and projection. Try:  d3.geoAiry() / d3.geoAitoff() / d3.geoArmadillo() / d3.geoAugust() / d3.geoAzimuthalEqualArea() / d3.geoAzimuthalEquidistant() and more
 const projection = d3
   .geoNaturalEarth1()
@@ -10,22 +11,10 @@ const projection = d3
 
 const pathGenerator = d3.geoPath().projection(projection);
 
-const zoom = d3
-  .zoom()
-  .scaleExtent([1, 8])
-  .on("zoom", (event) => {
-    projection
-      .scale(event.transform.k)
-      .translate(event.transform.x, event.transform.y);
-    svg.selectAll("path").attr("d", pathGenerator);
-  });
-
 // Load external data and boot
-d3.json("/geo.json").then(function(data) {
+d3.json("/geo.json").then(function (data) {
   // Draw the map
-  svg
-    .append("g")
-    .selectAll("path")
+  g.selectAll("path")
     .data(data.features)
     .join("path")
     .attr("fill", "#fff")
@@ -41,3 +30,13 @@ d3.json("/geo.json").then(function(data) {
       d3.select(e.currentTarget).transition().duration(40).attr("fill", "#fff");
     });
 });
+
+const zoom = d3
+  .zoom()
+  .scaleExtent([1, 8])
+  .on("zoom", (event) => {
+    // Anwenden der Transformation auf die gesamte Karte
+    g.attr("transform", event.transform);
+  });
+
+svg.call(zoom);
