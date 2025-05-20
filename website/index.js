@@ -12,13 +12,14 @@ const projection = d3
 const pathGenerator = d3.geoPath().projection(projection);
 
 // Load external data and boot
-d3.json("/geo.json").then(function (data) {
+d3.json("/geo.json").then(function(data) {
   // Draw the map
   g.selectAll("path")
     .data(data.features)
     .join("path")
     .attr("fill", "#fff")
     .attr("d", pathGenerator)
+    .attr("id", d => d.properties.adm0_a3)
     .style("stroke", "#999999")
     .on("mouseover", (e, d) => {
       d3.select(e.currentTarget)
@@ -29,6 +30,13 @@ d3.json("/geo.json").then(function (data) {
     .on("mouseout", (e, d) => {
       d3.select(e.currentTarget).transition().duration(40).attr("fill", "#fff");
     });
+
+  d3.select("#regions")
+    .selectAll("option")
+    .data(data.features)
+    .join("option")
+    .attr("value", (d) => d.properties.adm0_a3)
+    .text((d) => d.properties.geounit)
 });
 
 const zoom = d3
@@ -40,3 +48,15 @@ const zoom = d3
   });
 
 svg.call(zoom);
+
+// const selectElem = document.getElementById("regions")
+// fetch("http://localhost:3000/areas")
+//   .then(async (r) => {
+//     let json = await r.json()
+//     for (const region of json) {
+//       let option = document.createElement("option")
+//       option.value = region.area
+//       option.innerText = region.area
+//       selectElem.appendChild(option)
+//     }
+//   })
